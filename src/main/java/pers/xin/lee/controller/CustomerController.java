@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -29,6 +33,7 @@ import pers.xin.lee.service.BaseDictService;
 import pers.xin.lee.service.CustomerService;
 import pers.xin.lee.util.Msg;
 
+@Api(value = "/", description = "Customer接口")
 @Controller
 public class CustomerController {
 
@@ -115,9 +120,14 @@ public class CustomerController {
      * @return
      * @根据id查询客户信息
      */
+    @ApiOperation(value = "根据id获取客户信息", notes = "根据id获取客户信息", httpMethod = "GET", response = Msg.class)
+    @ApiImplicitParams(
+            @ApiImplicitParam("id")
+    )
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Msg selectCustomerById(@PathVariable("id") Integer id) {
+    public Msg selectCustomerById(
+            @PathVariable("id") Integer id) {
         Customer customer = customerService.selectCustomerById(id);
         return Msg.createSuccessMsg().put("cust", customer);
     }

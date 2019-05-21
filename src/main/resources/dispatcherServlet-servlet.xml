@@ -45,4 +45,7 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 
+	<!-- 配置静态资源 -->
+	<mvc:resources mapping="/swagger/**" location="/WEB-INF/swagger/"/>
+	<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
 </beans>
